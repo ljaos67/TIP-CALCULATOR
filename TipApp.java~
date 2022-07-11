@@ -1,0 +1,79 @@
+// driver class TipApp
+
+import java.util.Scanner;
+
+public class TipApp
+{
+  TipCalculator defObj = new TipCalculator();
+  
+  public static void main(String[] args)
+  {
+    TipApp defBill = new TipApp();
+    defBill.CalculateTips();
+  }
+  
+  private void CalculateTips()
+  {
+    double tmp = 0;
+    int chk;
+    boolean flag = false;
+    char ans;
+    Scanner input = new Scanner(System.in);
+    System.out.print("*** Tip Calculator ***\n\n");
+    do
+    {
+    System.out.print("Enter the bill amount: ");
+    while(!flag)
+    {
+    if(!(input.hasNextDouble()))
+    {
+      System.out.print("Please enter a valid bill amount.\n");
+      System.out.print("Enter the bill amount: ");
+      input.nextLine();
+      continue;
+    }
+    tmp = input.nextDouble();
+    if(tmp < 0)
+    {
+      System.out.print("Please enter a valid bill amount.\n");
+      System.out.print("Enter the bill amount: ");
+      input.nextLine();
+    }
+    else
+    {
+      flag = true;
+    }
+    }
+    flag = false;
+    defObj.setBill(tmp);
+    System.out.print("Enter your desired tip percentage (20 equals 20%): ");
+    chk = input.nextInt();
+    while(chk < 0)
+    {
+      System.out.print("Please enter a valid tip percentage.\n");
+      System.out.print("Enter your desired tip percentage (20 equals 20%): ");
+      chk = input.nextInt();      
+    }
+    defObj.setPct(chk);
+    System.out.print("Enter the size of your party: ");
+    chk = input.nextInt();
+    while(chk < 0)
+    {
+      System.out.print("Please enter a valid party size.\n");
+      System.out.print("Enter the size of your party: ");
+      chk = input.nextInt();      
+    }
+    defObj.setPty(chk);
+    System.out.print("*** Your Bill ***\n\n");
+    System.out.printf("Bill Amount: $%.2f%n", defObj.getBill());
+    System.out.printf("Tip Percentage: %d%%%n", defObj.getPct());
+    System.out.printf("Party Size: %d%n%n", defObj.getPty());
+    System.out.printf("Total Bill (with Tip): $%.2f%n", defObj.getTotalBill());
+    System.out.printf("Share for Each Individual: $%.2f%n", defObj.getIndividualShare());
+    System.out.print("Another bill? (y/n): ");
+    ans = input.next().charAt(0);
+  }
+  while(ans == 'y' || ans == 'Y');
+  System.out.println("Ending Program...");
+}
+}
